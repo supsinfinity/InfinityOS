@@ -22,3 +22,28 @@
 ## v0.4
 
 - [ ] Workspace Snapshots
+
+# InfinityOS
+
+## Foundation
+- [x] GTK app
+- [x] CSS
+- [x] Live clock
+- [x] Context module
+
+## UI
+- [ ] Infinity button
+- [ ] Rounded panel
+- [ ] Floating panel
+- [ ] Theme engine
+
+## Modules
+- [ ] Music
+- [ ] Weather
+- [ ] Memory
+- [ ] CPU
+
+## Productivity
+- [ ] Focus Mode
+- [ ] Dashboard
+- [ ] Launcher
