@@ -5,6 +5,12 @@ from gi.repository import Gtk
 
 
 class ContextComponent:
+    """
+    Displays the current desktop context.
+    The ContextComponent will eventually be driven by the
+    Context Engine to present the most relevant information
+    for the user's current activity.
+    """
     def __init__(self):
         self.widget = Gtk.Label(
             label="🎵 No music playing"

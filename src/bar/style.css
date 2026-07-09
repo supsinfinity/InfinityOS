@@ -1,13 +1,27 @@
+/* ==========================================================
+   Window
+   ========================================================== */
+
 window {
     background: #1e1e2e;
 }
+
+/* ==========================================================
+   Global Widgets
+   ========================================================== */
 
 label {
     font-family: "JetBrainsMono Nerd Font";
     font-size: 14px;
     color: #cdd6f4;
-    padding: 0px;
+    padding: 0;
 }
+
+/* ==========================================================
+   Components
+   ========================================================== */
+
+/* Infinity Button */
 
 #infinity {
     font-size: 24px;
@@ -15,10 +29,55 @@ label {
     color: #89b4fa;
 }
 
+/* Context Engine */
+
 #context {
     color: #a6e3a1;
 }
 
+/* Clock */
+
 #clock {
     color: #f9e2af;
+}
+
+/* ==========================================================
+   Launcher
+   ========================================================== */
+
+.infinity-launcher {
+    padding: 8px;
+    border-radius: 14px;
+    background: #313244;
+}
+
+.infinity-launcher button {
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.infinity-launcher {
+    background: transparent;
+    padding: 0;
+}
+
+.infinity-launcher button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: transparent;
+    color: #cdd6f4;
+    border: none;
+
+}
+.infinity-launcher button:hover {
+    background: #45475a;
+}
+.launcher-box {
+    background: #313244;
+}
+
+.infinity-launcher contents {
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }

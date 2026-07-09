@@ -1,0 +1,17 @@
+"""
+Global constants used throughout InfinityOS.
+"""
+
+BAR_HEIGHT = 30
+
+WINDOW_WIDTH = 1200
+
+TOP_MARGIN = 8
+SIDE_MARGIN = 24
+
+STATUS_SPACING = 12
+
+SYSTEM_UPDATE_INTERVAL = 2
+WEATHER_UPDATE_INTERVAL = 60
+
+UNKNOWN_VALUE = "--"

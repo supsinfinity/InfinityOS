@@ -5,16 +5,29 @@ from pathlib import Path
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GLib, Gdk
 
-from components.clock import ClockComponent
+from core.logger import logger
 from components.context import ContextComponent
-from components.infinity import InfinityComponent
+from components.launcher import InfinityComponent
+from components.layout import StatusAreaComponent
+from core.constants import BAR_HEIGHT
+
+from services.weather_service import WeatherService
+
 class InfinityWindow(Gtk.ApplicationWindow):
-    def __init__(self, application):
+    """
+    Main application window for the Infinity Bar.
+    Constructs the visual layout by arranging UI
+    components while delegating application logic
+    to InfinityCore and registered services.
+    The window is responsible only for presentation
+    and layout.
+    """
+    def __init__(self, application, core):
         super().__init__(application=application)
 
-        BAR_HEIGHT = 30
-        TOP_MARGIN = 8
-        SIDE_MARGIN = 24
+        self.application = application
+        self.core = core
+
         # Load CSS
         provider = Gtk.CssProvider()
         css_path = Path(__file__).parent / "style.css"
@@ -39,7 +52,7 @@ class InfinityWindow(Gtk.ApplicationWindow):
         center_box.set_margin_bottom(10)
 
         # Left
-        infinity=InfinityComponent()
+        infinity = InfinityComponent()
         center_box.set_start_widget(infinity.widget)
 
         # Center
@@ -47,17 +60,17 @@ class InfinityWindow(Gtk.ApplicationWindow):
         center_box.set_center_widget(context.widget)
 
         # Right
-        clock=ClockComponent()
-        center_box.set_end_widget(clock.widget)
+        self.status_area = StatusAreaComponent(core)
 
-        # Add widgets
-        center_box.set_start_widget(infinity.widget)
-        center_box.set_center_widget(context.widget)
-        center_box.set_end_widget(clock.widget)
+        right_box = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL,
+            spacing=12,
+        )
 
+        right_box.append(self.status_area.widget)
+
+        center_box.set_end_widget(right_box)
         self.set_child(center_box)
 
-        self.connect("realize", self.on_realize)
-       
     def on_realize(self, *args):
-        print("Infinity Bar initialized")
+        logger.info("Infinity Bar initialized")
