@@ -3,6 +3,8 @@ from services.weather_service import WeatherService
 from services.system_service import SystemService
 from core.events.event_bus import EventBus
 from services.settings_service import SettingsService
+from backends.backend_manager import BackendManager
+from backends.system_backend import SystemBackend
 
 class InfinityCore:
     """
@@ -18,7 +20,9 @@ class InfinityCore:
     """
 
     def get_event_bus(self):
+
         """Return the application's Event Bus."""
+        
         return self.event_bus
 
     def __init__(self):
@@ -26,20 +30,32 @@ class InfinityCore:
         # Core infrastructure
         self.event_bus = EventBus()
 
+        self.backend_manager = BackendManager()
+
+        self.backend_manager.register(
+            SystemBackend()
+        )
+
+        system_backend = self.backend_manager.get_backend(
+            SystemBackend
+        )
+
         self.service_manager = ServiceManager()
 
-        # Register services
         self.service_manager.register(
             WeatherService(self.event_bus)
         )
 
         self.service_manager.register(
-            SystemService(self.event_bus)
-        )
-
+            SystemService(
+                self.event_bus,
+                system_backend
+    )
+)
+    
         self.service_manager.register(
             SettingsService()
-        )
+)
 
     def get_backend_manager(self):
         return self.backend_manager

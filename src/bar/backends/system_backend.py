@@ -18,7 +18,7 @@ class SystemBackend(Backend):
         """
         Return the current memory usage percentage.
         """
-        return psutil.virtual_memory().percent
+        return psutil.virtual_memory()
     
     def get_battery_percent(self):
         """
@@ -30,3 +30,9 @@ class SystemBackend(Backend):
             return None
 
         return battery.percent
+    
+    def get_memory(self):
+        """
+        Return the current virtual memory information.
+        """
+        return psutil.virtual_memory()

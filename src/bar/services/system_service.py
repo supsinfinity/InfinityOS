@@ -19,21 +19,25 @@ class SystemService(Service):
     notifies interested components through the EventBus.
     """
 
-    def __init__(self, event_bus):
+    def __init__(self, event_bus, backend):
         super().__init__()
 
         self.event_bus = event_bus
-        self.backend = SystemBackend()
+        self.backend = backend
 
-        self.cpu_usage = 0
-        self.memory_usage = 0
+        self.cpu_usage = 0.0
+        self.memory_used = 0.0
+        self.memory_total = 0.0
         self.battery_percent = None
 
     def get_cpu_usage(self) -> float:
         return self.cpu_usage
     
-    def get_memory_usage(self):
-        return self.memory_usage
+    def get_memory_total(self):
+        return self.memory_total
+    
+    def get_memory_used(self) -> float:
+        return self.memory_used
     
     def get_battery_percent(self):
         return self.battery_percent
@@ -50,15 +54,18 @@ class SystemService(Service):
 
     def _update(self):
         self.cpu_usage = self.backend.get_cpu_usage()
-        self.memory_usage = self.backend.get_memory_usage()
+
+        memory = self.backend.get_memory()
+        self.memory_used = memory.used / (1024 ** 3)
+        self.memory_total = memory.total / (1024 ** 3)
+
         self.battery_percent = self.backend.get_battery_percent()
 
         logger.debug(
-            f"CPU: {self.cpu_usage}% | "
-            f"Memory: {self.memory_usage}%"
-            f"Battery: {self.battery_percent}"
-
-)
+            f"CPU: {self.cpu_usage:.0f}% | "
+            f"Memory: {self.memory_used:.1f}/{self.memory_total:.1f} GB | "
+            f"Battery: {self.battery_percent:.0f}%"
+    )
 
         self.event_bus.emit(Events.SYSTEM_CHANGED)
 

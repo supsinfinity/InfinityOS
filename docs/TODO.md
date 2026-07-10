@@ -32,7 +32,7 @@
 - [x] Context module
 
 ## UI
-- [ ] Infinity button
+- [x] Infinity button
 - [ ] Rounded panel
 - [ ] Floating panel
 - [ ] Theme engine

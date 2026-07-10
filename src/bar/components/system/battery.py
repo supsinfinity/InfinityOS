@@ -30,4 +30,4 @@ class BatteryComponent(Component):
         if battery is None:
             self.widget.set_text("BAT --")
         else:
-            self.widget.set_text(f"BAT {battery}%")
+            self.widget.set_text(f"BAT {battery:.0f}%")

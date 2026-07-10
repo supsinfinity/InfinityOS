@@ -20,8 +20,10 @@ class MemoryComponent(Component):
 
     def refresh(self) -> None:
         if self.system_service:
+            used = self.system_service.get_memory_used()
+            total = self.system_service.get_memory_total()
             self.widget.set_text(
-                f"MEM {self.system_service.get_memory_usage()}%"
+            f"MEM {used:.1f} GB"
             )
         else:
             self.widget.set_text("MEM --")

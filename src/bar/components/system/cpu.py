@@ -27,7 +27,7 @@ class CPUComponent(Component):
     def refresh(self) -> None:
         if self.system_service:
             self.widget.set_text(
-                f"CPU {self.system_service.get_cpu_usage()}%"
+                f"CPU {self.system_service.get_cpu_usage():.0f}%"
             )
         else:
             self.widget.set_text("CPU --")
